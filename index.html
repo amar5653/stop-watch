@@ -11,10 +11,51 @@
      <div class="stop-watch">
         <h1 id="display-time">00:00:00</h1>
         <div class="btns">
-            <i class="fa-solid fa-stop"></i>
-            <i class="fa-solid fa-play"></i>
-            <i class="fa-solid fa-clock-rotate-left"></i>
+          <button onclick="watchStop()"> <i class="fa-solid fa-stop"></i> </button> 
+        <button >  <i class="fa-solid fa-play" onclick="watchStart()"></i> </button> 
+    <button onclick="watchReset()">   <i class="fa-solid fa-clock-rotate-left"></i> </button> 
         </div>
      </div>
 </body>
+<script>
+
+    let [secs, mins, hrs] = [0,0,0];
+    let displayTime = document.getElementById("display-time");
+    let timer = null;
+
+    function stopWatch() {
+        if(secs === 60) {
+            secs = 0;
+            mins++;
+            if( mins === 60) {
+                mins = 0;
+                hrs++;
+            }
+        }
+
+        let h = hrs < 10 ? "0" + hrs : hrs;
+        let m = mins < 10 ? "0" + mins : mins;
+        let s = secs < 10 ? "0" + secs : secs;
+
+        displayTime.innerHTML = h + ":" + m + ":" + s;
+    }
+
+    function watchStart() {
+        if(timer !== null) {
+                clearInterval(timer);
+             };
+        timer = setInterval(stopWatch,1000);
+       
+    }
+
+    function watchStop() {
+        clearInterval(timer);
+    }
+
+    function watchReset() {
+        clearInterval(timer);
+        [s,m,h] = [0,0,0];
+    }
+
+</script>
 </html>
